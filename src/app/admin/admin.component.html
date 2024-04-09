@@ -1,0 +1,19 @@
+<div style="background-color: aqua;"><h1 style="text-align: center;">ADMIN DASHBOARD</h1>
+<br><br>
+<div class="button-container">
+    <button class="action-button" (click)="delete()">Wanna Delete??</button><br><br>
+    <div *ngIf="admindelete"><app-infodelete *ngIf="destroy"> <button style="background-color: chocolate;" (click)="destroyfunction()">
+      Do not open delete Operations(Destroy)
+    </button></app-infodelete></div>
+  </div>
+  <br>
+  <div class="button-container">
+    <button class="action-button" (click)="updateOrAdd()">Wanna Modify or Add??</button>
+    <div *ngIf="adminUpdate">
+    <app-infoupdate *ngIf="updatedestroy">
+      <button style="background-color: chocolate;" (click)="destroyUpdatefunction()">
+        Do not open Update or Add Operations(Destroy)
+      </button>
+    </app-infoupdate></div>
+  </div>
+</div>

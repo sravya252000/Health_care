@@ -1,0 +1,60 @@
+<div class="background">
+  <div class="container">
+    <h1>Welcome to HealthCare Application</h1>
+    <h2>Health focus-in an easy way</h2>
+    <div class="login-container">
+      <form [formGroup]="formgroupobject">
+        <div class="input-group">
+          <input type="text" placeholder="Name" formControlName="name">
+        </div>
+        
+        <div class="input-group">
+          <input type="number" placeholder="ID" formControlName="id">
+        </div>
+        
+        <div class="input-group">
+          <select formControlName="role">
+            <option disabled selected>Please select the role</option>
+            <option>Patient</option>
+            <option>Doctor</option>
+            <option>Admin</option>
+          </select>
+        </div>
+        <button (click)="checkDetails()">Login</button>
+        <div *ngIf="this.formgroupobject.get('role')?.value==='Patient'">
+          <p *ngIf="onClickLoginbutton && checkPatientExists">Patient Logged in successfully</p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          <a *ngIf="onClickLoginbutton && checkPatientExists" routerLink="/patient" routerLinkActive="active" target="_blank">Go to Patient Dashboard</a>
+          <p *ngIf="onClickLoginbutton && !checkPatientExists">Patient does not exist, please register</p>
+        </div>
+        <div *ngIf="this.formgroupobject.get('role')?.value==='Doctor'">
+          <p *ngIf="onClickLoginbutton && checkDoctorExists">Doctor Logged in successfully</p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+          <a *ngIf="onClickLoginbutton && checkDoctorExists" routerLink="/doctor" routerLinkActive="active" target="_blank">Go to Doctor Dashboard</a>
+          <p *ngIf="onClickLoginbutton && !checkDoctorExists">Doctor does not exist, please contact Administrator</p>
+        </div>
+        <div *ngIf="this.formgroupobject.get('role')?.value==='Admin'">
+        <p *ngIf="onClickLoginbutton && checkAdminExists">Admin logged in successfully</p>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <a *ngIf="onClickLoginbutton && checkAdminExists" routerLink="/admin" routerLinkActive="active" target="_blank">Go to Admin Dashboard</a>
+        <p *ngIf="onClickLoginbutton && !checkAdminExists">Admin credentials are secured</p></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        New User?<br>
+        <input style="text-align: center;" type="checkbox" fornControlname="canActivate" (change)="canChildActivateFunction()">
+        <p style="text-align: center;">Accept terms to access registration</p>
+        <button (click)="register()" routerLink="/register" routerLinkActive="active" target="_self">Register Here</button>
+      </form>
+    </div> 
+    <div class="registration-container">
+      <router-outlet *ngIf="registerHere"></router-outlet>
+    </div>
+  </div>
+</div>

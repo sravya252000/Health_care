@@ -1,0 +1,103 @@
+<router-outlet></router-outlet> 
+<div style="background-color: aqua;">
+    <h1 style="text-align: center;">DOCTOR DASHBOARD</h1>
+    <div class="container">
+      <div class="sidebar">
+        <h1 style="text-align: center;">Welcome!!!</h1>
+        <ul>
+          <li (click)="selectedOption = 'getAllPatients'">Get all patients</li><br>
+          <li (click)="selectedOption = 'addMedicines'">Add medicines</li><br>
+          <li (click)="selectedOption = 'getDoctorById'">Get doctor by id</li><br>
+          <li (click)="selectedOption = 'getAllDoctors'">Get all doctors</li><br>
+          <li (click)="selectedOption = 'getDoctorNames'">Get doctor names</li><br>
+          <li (click)="selectedOption = 'getAppointmentsByDoctorId'">Get Appointments by doctor ID</li><br>
+        </ul>
+      </div>
+  
+      <div class="content">
+       
+
+<div class="section" *ngIf="selectedOption === 'getAllPatients'">
+  <h2>Get All Patients</h2>
+  <button (click)="  getAllPatients()">View all Patients</button>
+  <div *ngIf="allPatients.length > 0;">
+    <h2>Patients</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Doctor Specialization</th>
+          <th>Patient ID</th>
+          <th>Patient Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of allPatients">
+          <td>{{ patient.doctorSecializationName }}</td>
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</div>
+<div class="section" *ngIf="selectedOption === 'addMedicines'">
+  <h2>Add Medicines</h2>
+  <input type="number" [(ngModel)]="medicineId" placeholder="Medicine ID"><br>
+  <input type="text" [(ngModel)]="medicineName" placeholder="Medicine Name"><br>
+  <input type="number" [(ngModel)]="dosage" placeholder="Dosage"><br>
+  <input type="text" [(ngModel)]="frequency" placeholder="Frequency"><br>
+  <input type="text" [(ngModel)]="duration" placeholder="Duration"><br>
+  <input type="number" [(ngModel)]="PatientIDForMedicine" placeholder="Patient Id"><br>
+<button (click)="addMedicine()">Add Medicine</button>
+
+</div>
+
+<div class="section" *ngIf="selectedOption === 'getDoctorById'">
+  <h2>Get Doctor By ID</h2>
+  <input type="text" [(ngModel)]="doctorId" placeholder="Doctor Id"><br>
+  <button (click)="getDoctorByDoctorId()">Get Doctor</button>
+  {{getdoctorbyid|json}}
+</div>
+
+<div class="section" *ngIf="selectedOption === 'getAllDoctors'">
+  <h2>Get All Doctors</h2>
+  <button (click)=" getAllDoctors()">View all doctors</button>
+  <div *ngIf="allDoctors.length > 0;">
+    <h2>Doctors</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Doctor Specialization</th>
+          <th>Doctor ID</th>
+          <th>Doctor Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of allDoctors">
+          <td>{{ doctor.specialization }}</td>
+          <td>{{ doctor.id }}</td>
+          <td>{{ doctor.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</div>
+<div class="section" *ngIf="selectedOption === 'getDoctorNames'">
+  <h2>Get Doctor Names</h2>
+  <button (click)=" getAllDoctorNames()">View all doctors names</button>
+ <li *ngFor="let name of doctorNames">
+    {{name}}
+ </li>
+</div>
+
+<div class="section" *ngIf="selectedOption === 'getAppointmentsByDoctorId'">
+  <h2>Get Appointments By Doctor ID</h2>
+  <input type="text" [(ngModel)]="doctorIdForAppointment" placeholder="Doctor Id"><br>
+  <button (click)="getAllAppointmentsByDoctorID()">Get Appointment</button>
+  {{getappointmentsbydoctorid|json}}
+</div>
+
+      </div>
+    </div>
+  </div>
+  

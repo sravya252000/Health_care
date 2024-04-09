@@ -1,0 +1,141 @@
+<div style="background-color: aqua;"><h1 style="text-align: center;">PATIENT DASHBOARD</h1>
+<div class="container">
+    <div class="sidebar">
+      <h1 style="text-align: center;">Welcome!!! {{serviceobject.name}}</h1>
+      <ul>
+        <li (click)="selectedOption = 'healthServices'">View the Health services that this hospital provides</li>
+        <br>
+        <li (click)="selectedOption = 'doctors'"> View all the doctors under specific service</li>
+        <br>
+        <li (click)="selectedOption = 'medicines'">View All your medicines list </li>
+        <br>
+        <li (click)="selectedOption = 'appointments'">View all the recent appointments(Calander for next 30 days)</li>
+        <br>
+        <li (click)="selectedOption = 'scheduleAppointment'"> Schedule your appointment by viewing all the recent appointment date and timings</li>
+        <br>
+        <li (click)="selectedOption = 'ViewAppointment'"> View all your scheduled appointments till now</li>
+      </ul>
+    </div>
+  
+    <div class="content">
+      <div class="section" *ngIf="selectedOption === 'healthServices'">
+        <h2>Health Services Provided</h2>
+        <ul>
+        <li *ngFor="let domain of hospitalDomains">{{ domain }}</li>
+      </ul>
+      </div>
+  
+      <div class="section" *ngIf="selectedOption === 'doctors'">
+        
+        <h2>View All Doctors</h2>
+        <p>List of doctors will be displayed here.</p>
+        <input type="text" [(ngModel)]="specialization" placeholder="Service">
+        <button (click)="getDoctorsBySpecialization()">View all doctors</button>
+        <div *ngIf="doctors.length > 0; else noDoctors">
+          <h2>Doctors</h2>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Doctor Specialization</th>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doctor of doctors">
+                <td>{{ doctor.specialization }}</td>
+                <td>{{ doctor.id }}</td>
+                <td>{{ doctor.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noDoctors>
+          <p>No doctors found.</p>
+        </ng-template>
+      </div>
+  
+      <div class="section" *ngIf="selectedOption === 'medicines'">
+        <h2>View All Medicines</h2>
+        <p>List of medicines will be displayed here.</p>
+        <input type="number" [(ngModel)]="patientId" placeholder="Enter your id">
+        <button (click)=" getPatientMedicines()">Get my medications list</button>
+<div *ngIf="medicines.length > 0; else noMedicines">
+  <h2>Medicines</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Medicine ID</th>
+        <th>Medicine Name</th>
+        <th>Dosage</th>
+        <th>Frequency</th>
+        <th>Duration</th>
+        <th>Patient ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medicine of medicines">
+        <td>{{ medicine.id }}</td>
+        <td>{{ medicine.medicineName }}</td>
+        <td>{{ medicine.dosage }}</td>
+        <td>{{ medicine.frequency }}</td>
+        <td>{{ medicine.duration }}</td>
+        <td>{{ medicine.patientId }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noMedicines>
+  <p>No medicines found.</p>
+</ng-template>
+
+      </div>
+  
+      <div class="section" *ngIf="selectedOption === 'appointments'">
+        <h2>View All Appointments</h2>
+        <div class="calendar">
+          <div *ngFor="let day of calendarDays" class="calendar-day" [ngClass]="{'appointment-filled': isAppointmentOnDate(day), 'no-appointment': !isAppointmentOnDate(day)}">
+            {{ day | date:'mediumDate' }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="section" *ngIf="selectedOption === 'scheduleAppointment'">
+        <h2>Schedule Appointment</h2>
+        <p>Schedule your appointment here.</p>
+        <input type="number" placeholder="Appointment Id" [(ngModel)]="scheduleAppointmetId"><br>
+        <input type="text" placeholder="Appointment Date(YYYY-MM-DD)" [(ngModel)]="scheduleAppointmentDate"><br>
+        <input type="number" placeholder="Patient Id(Your ID)" [(ngModel)]="scheduleAppointmentpatientId"><br>
+        <input type="number" placeholder="Doctor Id" [(ngModel)]="scheduleDoctorId"><br>
+        <button (click)="insertAppointment()">Schedule Appointment</button>
+      </div>
+      <div class="section" *ngIf="selectedOption === 'ViewAppointment'">
+        <h2>View all your scheduled appointments here</h2>
+        <input type="number" [(ngModel)]="patientIdForAppointments" placeholder="Enter your Id">
+        <button (click)="loadAppointments()">View Your Appointements</button>
+        <div *ngIf="appointmentsbyPatientId.length > 0; else noAppointments">
+          <h2>Appointments</h2>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Date and Time</th>
+                <th>Patient ID</th>
+                <th>Doctor ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appointment of appointmentsbyPatientId">
+                <td>{{ appointment.appointmentDateAndTime }}</td>
+                <td>{{ appointment.patientId }}</td>
+                <td>{{ appointment.doctorId }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noAppointments>
+          <p>No appointments found for the entered patient ID.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

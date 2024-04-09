@@ -1,0 +1,16 @@
+<div>
+    <h2>Patient Registration!</h2>
+    <input type="text" placeholder="Domains that you have the problem" style="width: 210px; height: 20px;" [(ngModel)]="doctorSpecializationName">
+    <button style="width: 215px; height: 20px;" (click)="listOfDomains()">View the List of Domains</button>
+    <div class="domain-list" *ngIf="showDomains">
+      <h2>List of Hospital Domains</h2>
+      <ul>
+        <li *ngFor="let domain of hospitalDomains">{{ domain }}</li>
+      </ul>
+    </div>
+    <input type="text" placeholder="Name" style="width: 210px;height:20px" [(ngModel)]="name">
+    <input type="number" placeholder="ID" style="width: 210px;height:20px" [(ngModel)]="id">
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;<button (click)="register()">Register</button>
+  </div>
+  

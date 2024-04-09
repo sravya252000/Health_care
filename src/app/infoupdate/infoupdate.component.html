@@ -1,0 +1,68 @@
+<div class="dashboard">
+    <div class="sidebar">
+      <div class="list-item" (click)="selectItem('updateDoctor')">
+        Update Doctor
+      </div>
+      <div class="list-item" (click)="selectItem('updateAppointment')">
+        Update Appointment
+      </div>
+      <div class="list-item" (click)="selectItem('addDoctor')">
+        Add Doctor
+      </div>
+      <div class="list-item" (click)="selectItem('viewAppointments')">
+        View Appointsments
+      </div>
+    </div>
+      <div class="content">
+      <div *ngIf="selectedItem === 'updateDoctor'">
+        <h2>Update Doctor</h2>
+        <input type="text" placeholder="New Specialization" [(ngModel)]="specialization"><br>
+        <input type="number" placeholder="New Doctor Id" [(ngModel)]="doctorId"><br>
+        <input type="text" placeholder="New Doctor Name" [(ngModel)]="doctorName"><br><br>
+        <button (click)="updateDoctor()">Update Doctor</button><br>
+      </div>
+  
+      <div *ngIf="selectedItem === 'updateAppointment'">
+        <h2>Update Appointment</h2>
+        <input type="text" placeholder="New AppointmentId" [(ngModel)]="appointmentId"><br>
+        <input type="text" placeholder="NewDate" [(ngModel)]="appointmentDate"><br>
+        <input type="number" placeholder="New patient Id" [(ngModel)]="patientId"><br>
+        <input type="number" placeholder="New Doctor Id" [(ngModel)]="appointmentDoctorId"><br><br>
+        <button (click)="updateAppointment()">Update Appointment</button>
+      </div>
+      <div *ngIf="selectedItem === 'addDoctor'">
+        <h2>Add Doctor</h2>
+        <input type="number" placeholder="Doctor Id" [(ngModel)]="addDcotorId"><br>
+        <input type="text" placeholder="Doctor Name" [(ngModel)]="addDoctorName"><br>
+        <input type="text" placeholder="Specialization Name" [(ngModel)]="addDoctorSpecialization"><br><br>
+        <button (click)="addDoctor()">Add Doctor</button>
+      </div>
+      <div *ngIf="selectedItem === 'viewAppointments'">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button style="text-align: center;" (click)="getAppointments()">View Appointments</button>
+        <br>
+        <input type="text" style="width: 390px;" [(ngModel)]="appointmentIdSearchText" placeholder="Search by Appointment ID">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Appointment ID</th>
+              <th>Appointment Date</th>
+              <th>Patient ID</th>
+              <th>Doctor ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointments | filter: appointmentIdSearchText">
+              <td>{{ appointment.id }}</td>
+              <td>{{ appointment.appointmentDateAndTime }}</td>
+              <td>{{ appointment.patientId }}</td>
+              <td>{{ appointment.doctorId }}</td>
+            </tr>
+          </tbody>
+        </table>        
+      </div>
+    </div>
+  </div>
+<ng-content></ng-content>

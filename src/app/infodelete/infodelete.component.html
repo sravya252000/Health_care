@@ -1,0 +1,34 @@
+
+<div class="dashboard">
+    <div class="sidebar">
+      <div class="list-item" (click)="selectItem('deleteDoctor')">
+        Delete Doctor by Doctor ID
+      </div>
+      <div class="list-item" (click)="selectItem('deleteSpecialization')">
+        Delete Specialization by Specialization ID
+      </div>
+      <div class="list-item" (click)="selectItem('deleteAppointment')">
+        Delete Appointment by Appointment ID
+      </div>
+    </div>
+      <div class="content">
+      <div *ngIf="selectedItem === 'deleteDoctor'">
+        <h2>Delete Doctor by Doctor ID</h2>
+        <input type="text" placeholder="doctorId" [(ngModel)]="doctorId"><br><br>
+        <button (click)="deleteDoctor()">Delete Doctor</button>
+      </div>
+  
+      <div *ngIf="selectedItem === 'deleteSpecialization'">
+        <h2>Delete Specialization by Specialization ID</h2>
+        <input type="text" placeholder="specializationId" [(ngModel)]="specializationId"><br><br>
+        <button (click)="deleteSpecialization()">Delete Specialization</button>
+      </div>
+  
+      <div *ngIf="selectedItem === 'deleteAppointment'">
+        <h2>Delete Appointment by Appointment ID</h2>
+        <input type="text" placeholder="appointmentId" [(ngModel)]="appointmentId"><br><br>
+        <button (click)="deleteAppointment()">Delete Appointment</button>
+      </div>
+    </div>
+  </div>
+  <ng-content></ng-content>
